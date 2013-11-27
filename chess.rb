@@ -1,5 +1,5 @@
 # coding: utf-8
-
+require 'colorize'
 class Game
 end
 
@@ -8,41 +8,48 @@ class Board
   def initialize
     @grid = Array.new(8) { Array.new(8) }
     fill_board
-    render
-  end
+   end
 
   def fill_board
+
     grid.count.times do |row|
-      puts row
       color = (row == 0 || row == 1) ? :black : :white
       grid.count.times do |col|
+        background = (row + col).even? ? :on_white : :on_black
         grid[row][col] =
         if row == 1 || row == 6
-          Pawn.new(self,[row, col], color)
+          Pawn.new(self,[row, col], color).to_s.send(background)
         elsif row == 0
           if col == 0 || col == 7
-            Rook.new(self,[row, col] , color)
+            Rook.new(self,[row, col] , color).to_s.send(background)
           elsif col == 1 || col == 6
-            Knight.new(self,[row, col], color)
+            Knight.new(self,[row, col], color).to_s.send(background)
           elsif col == 2 || col == 5
-            Bishop.new(self,[row, col], color)
+            Bishop.new(self,[row, col], color).to_s.send(background)
           elsif col == 3
-             Queen.new(self,[row, col], color)
+             Queen.new(self,[row, col], color).to_s.send(background)
           elsif col == 4
-            King.new(self,[row, col], color)
+            King.new(self,[row, col], color).to_s.send(background)
           end
         elsif row == 7
           if col == 0 || col == 7
-            Rook.new(self,[row, col] , color)
+            Rook.new(self,[row, col] , color).to_s.send(background)
           elsif col == 1 || col == 6
-            Knight.new(self,[row, col], color)
+            Knight.new(self,[row, col], color).to_s.send(background)
           elsif col == 2 || col == 5
-            Bishop.new(self,[row, col], color)
+            Bishop.new(self,[row, col], color).to_s.send(background)
           elsif col == 3
-            King.new(self,[row, col], color)
+            King.new(self,[row, col], color).to_s.send(background)
           elsif col == 4
-            Queen.new(self,[row, col], color)
+            Queen.new(self,[row, col], color).to_s.send(background)
           end
+        else
+          if (row + col) % 2 == 0
+            "   ".on_white
+          else
+            "   ".on_black
+          end
+          #.send(background)
         end
       end
     end
@@ -59,14 +66,24 @@ class Board
   end
 
   def to_s
-    grid.each {|row| p row }
+
+    # grid.count.times do |row|
+    #   grid.count.times do |col|
+    #    if grid[row][col].nil?
+    #      grid[row][col] =
+    #    else
+    #    end
+    #   end
+    # end
+    #
+    # end
+
+    grid.each {|row| puts row.join }
   end
 
   def render
-    grid.count.times do |row|
-      grid.count.times do |col|
-        grid[row][col] = grid[row][col].nil? ? :
-      end
+    grid.each do |row|
+      puts row.join
     end
   end
 end
@@ -78,20 +95,20 @@ class Piece
 
   PIECE_SYMBOLS = {
     :white => {
-      "Pawn" => "♙",
-      "Rook" => "♖",
-      "Knight" => "♘",
-      "Bishop" => "♗",
-      "King" => "♔",
-      "Queen" => "♕"
+      "Pawn" => " ♙ ".green,
+      "Rook" => " ♖ ".green,
+      "Knight" => " ♘ ".green,
+      "Bishop" => " ♗ ".green,
+      "King" => " ♔ ".green,
+      "Queen" => " ♕ ".green
     },
     :black => {
-      "Pawn" => "♟",
-      "Rook" => "♜",
-      "Knight" => "♞",
-      "Bishop" => "♝",
-      "King" => "♚",
-      "Queen" => "♛"
+      "Pawn" => " ♟ ".red,
+      "Rook" => " ♜ ".red,
+      "Knight" => " ♞ ".red,
+      "Bishop" => " ♝ ".red,
+      "King" => " ♚ ".red,
+      "Queen" => " ♛ ".red
     }
   }
 
