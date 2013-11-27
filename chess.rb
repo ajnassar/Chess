@@ -8,51 +8,49 @@ class Board
   def initialize
     @grid = Array.new(8) { Array.new(8) }
     fill_board
-   end
+  end
 
   def fill_board
-
     grid.count.times do |row|
       color = (row == 0 || row == 1) ? :black : :white
       grid.count.times do |col|
-        background = (row + col).even? ? :on_white : :on_black
+
         grid[row][col] =
         if row == 1 || row == 6
-          Pawn.new(self,[row, col], color).to_s.send(background)
+          Pawn.new(self,[row, col], color)
         elsif row == 0
           if col == 0 || col == 7
-            Rook.new(self,[row, col] , color).to_s.send(background)
+            Rook.new(self,[row, col] , color)
           elsif col == 1 || col == 6
-            Knight.new(self,[row, col], color).to_s.send(background)
+            Knight.new(self,[row, col], color)
           elsif col == 2 || col == 5
-            Bishop.new(self,[row, col], color).to_s.send(background)
+            Bishop.new(self,[row, col], color)
           elsif col == 3
-             Queen.new(self,[row, col], color).to_s.send(background)
+             Queen.new(self,[row, col], color)
           elsif col == 4
-            King.new(self,[row, col], color).to_s.send(background)
+            King.new(self,[row, col], color)
           end
         elsif row == 7
           if col == 0 || col == 7
-            Rook.new(self,[row, col] , color).to_s.send(background)
+            Rook.new(self,[row, col] , color)
           elsif col == 1 || col == 6
-            Knight.new(self,[row, col], color).to_s.send(background)
+            Knight.new(self,[row, col], color)
           elsif col == 2 || col == 5
-            Bishop.new(self,[row, col], color).to_s.send(background)
+            Bishop.new(self,[row, col], color)
           elsif col == 3
-            King.new(self,[row, col], color).to_s.send(background)
+            King.new(self,[row, col], color)
           elsif col == 4
-            Queen.new(self,[row, col], color).to_s.send(background)
+            Queen.new(self,[row, col], color)
           end
         else
-          if (row + col) % 2 == 0
-            "   ".on_white
-          else
-            "   ".on_black
-          end
-          #.send(background)
+            "   "
         end
       end
     end
+  end
+
+  def to_s
+    nil
   end
 
   def [](pos)
@@ -65,26 +63,16 @@ class Board
     @grid[x][y] = piece
   end
 
-  def to_s
-
-    # grid.count.times do |row|
-    #   grid.count.times do |col|
-    #    if grid[row][col].nil?
-    #      grid[row][col] =
-    #    else
-    #    end
-    #   end
-    # end
-    #
-    # end
-
-    grid.each {|row| puts row.join }
-  end
-
   def render
-    grid.each do |row|
-      puts row.join
+    temp_board = ""
+    grid.count.times do |row|
+      temp_board += "\n"
+      grid.count.times do |col|
+        background = (row + col).even? ? :on_white : :on_black
+        temp_board += grid[row][col].to_s.send(background)
+      end
     end
+    puts temp_board
   end
 end
 
