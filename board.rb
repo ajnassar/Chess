@@ -83,4 +83,8 @@ class Board
     self[pos[0],pos[1]]
   end
 
+  def remove(row, col)
+    self[row, col] = "   "
+    nil
+  end
 end

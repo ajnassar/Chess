@@ -2,20 +2,20 @@
 require_relative '../pieces'
 class SlidingPiece < Piece
 
-  def move_piece?(dest)
-    super && path_clear?(dest)
+  def move_piece?(row, col)
+    super && path_clear?(row, col)
   end
 
-  def path_clear?(dest)
-    drow = dest[0] <=> position[0] #test this to make sure spaceship is in the right place
-    dcol = dest[1] <=> position[1]
+  def path_clear?(row, col)
+    drow = row <=> position[0] #test this to make sure spaceship is in the right place
+    dcol = col <=> position[1]
     p [drow, dcol]
-    reached_dest = ((position[0] + drow) == dest[0]) && ((position[1] + dcol) == dest[1])
+    reached_dest = ((position[0] + drow) == row) && ((position[1] + dcol) == col)
     current_pos = position
     clear = true
     p reached_dest
     current_pos = [position[0], position[1]]
-    until current_pos == [dest[0] - drow, dest[1] - dcol]
+    until current_pos == [row - drow, col - dcol]
       p current_pos
       clear = false if board.check_position(current_pos).is_a?(String)
       current_pos = [current_pos[0] + drow, current_pos[1] + dcol]

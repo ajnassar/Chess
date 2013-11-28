@@ -49,7 +49,7 @@ class Piece
   end
 
   def move_piece?(row, col)
-    self.valid_position?(dest) && board.valid_destination?(color, row, col)
+    self.valid_position?(row, col) && board.valid_destination?(color, row, col)
   end
 
 
