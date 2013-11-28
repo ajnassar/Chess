@@ -39,16 +39,15 @@ class Piece
   end
 
   def move_piece(row, col)
-    x, y = row, col
-    board[row, col] = self
-    board[position[0], position[1]] = "   "
-    self.position = [row, col]
-    # if move_piece?(dest)
-    #
-    # end
+    if can_move_piece?(row,col)
+      x, y = row, col
+      board[row, col] = self
+      board[position[0], position[1]] = "   "
+      self.position = [row, col]
+    end
   end
 
-  def move_piece?(row, col)
+  def can_move_piece?(row, col)
     self.valid_position?(row, col) && board.valid_destination?(color, row, col)
   end
 

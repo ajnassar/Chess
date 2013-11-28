@@ -79,12 +79,13 @@ class Board
     self[row, col].color != color
   end
 
-  def check_position(pos)
-    self[pos[0],pos[1]]
+  def check_position(row, col)
+    self[row, col]
   end
 
   def remove(row, col)
     self[row, col] = "   "
+    #self[row, col].position = "   "
     nil
   end
 end
