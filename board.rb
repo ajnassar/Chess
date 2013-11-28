@@ -74,9 +74,9 @@ class Board
     puts temp_board
   end
 
-  def valid_destination?(color, dest)
-    self[dest[0], dest[1]].is_a?(String) ||
-    self[dest[0], dest[1]].color != color
+  def valid_destination?(color, row, col)
+    self[row, col].is_a?(String) ||
+    self[row, col].color != color
   end
 
   def check_position(pos)
