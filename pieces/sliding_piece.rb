@@ -1,3 +1,4 @@
+
 require_relative '../pieces'
 class SlidingPiece < Piece
 
@@ -6,13 +7,16 @@ class SlidingPiece < Piece
   end
 
   def path_clear?(dest)
-    drow = position[0] <=> dest[0] #test this to make sure spaceship is in the right place
-    dcol = position[1] <=> dest[1]
-    reached_dest = ((position[0] + drow) > dest[0]) && ((position[1] + dcol) > dest[1])
+    drow = dest[0] <=> position[0] #test this to make sure spaceship is in the right place
+    dcol = dest[1] <=> position[1]
+    p [drow, dcol]
+    reached_dest = ((position[0] + drow) == dest[0]) && ((position[1] + dcol) == dest[1])
     current_pos = position
     clear = true
-    current_pos = [position[0] + drow, position[1] + dcol]
-    until reached_dest
+    p reached_dest
+    current_pos = [position[0], position[1]]
+    until current_pos == [dest[0] - drow, dest[1] - dcol]
+      p current_pos
       clear = false if board.check_position(current_pos).is_a?(String)
       current_pos = [current_pos[0] + drow, current_pos[1] + dcol]
     end

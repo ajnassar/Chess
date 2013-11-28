@@ -38,10 +38,14 @@ class Piece
     PIECE_SYMBOLS[color][self.class.name]
   end
 
-  def move_piece(dest)
-    if move_piece?(dest)
-
-    end
+  def move_piece(row, col)
+    x, y = row, col
+    board[row, col] = self
+    board[position[0], position[1]] = "   "
+    self.position = [row, col]
+    # if move_piece?(dest)
+    #
+    # end
   end
 
   def move_piece?(dest)

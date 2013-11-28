@@ -14,7 +14,7 @@ class Board
       color = (row == 0 || row == 1) ? :black : :white
       grid.count.times do |col|
 
-        grid[row][col] =
+        self[row, col] =
         if row == 1 || row == 6
           Pawn.new(self,[row, col], color)
         elsif row == 0
@@ -52,13 +52,13 @@ class Board
     nil
   end
 
-  def [](pos)
-    x,y = pos
+  def [](pos1, pos2)
+    x,y = pos1, pos2
     @grid[x][y]
   end
 
-  def []=(pos, piece)
-    x,y = pos
+  def []=(pos1, pos2, piece)
+    x,y = pos1, pos2
     @grid[x][y] = piece
   end
 
@@ -68,19 +68,19 @@ class Board
       temp_board += "\n"
       grid.count.times do |col|
         background = (row + col).even? ? :on_white : :on_black
-        temp_board += grid[row][col].to_s.send(background)
+        temp_board += self[row, col].to_s.send(background)
       end
     end
     puts temp_board
   end
 
   def valid_destination?(color, dest)
-    self.grid[dest[0]][dest[1]].is_a?(String) ||
-    self.grid[dest[0]][dest[1]].color != color
+    self[dest[0], dest[1]].is_a?(String) ||
+    self[dest[0], dest[1]].color != color
   end
 
   def check_position(pos)
-    grid[pos[0]][pos[1]]
+    self[pos[0],pos[1]]
   end
 
 end
